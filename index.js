@@ -1,11 +1,32 @@
 const express = require('express');
 const app = express();
-const port = 5000;
+const cors = require('cors');
 
-app.get('/', (req, res) => {
-    res.sendFile('index.html', {root: __dirname});
+const ingredients = [
+    {
+        "id": "1",
+        "item": "Bacon"
+    },
+    {
+        "id": "2",
+        "item": "Eggs"
+    },
+    {
+        "id": "3",
+        "item": "Milk"
+    },
+    {
+        "id": "4",
+        "item": "Butter"
+    }
+];
+
+app.get('/ingredients', (req, res, next) => {
+    res.send(ingredients);
 });
 
-app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
-    console.log(`Now listening on port ${port}`);
-});
+app.use(cors({
+    origin: ['https://www.section.io', 'https://www.google.com/']
+}));
+
+app.listen(6069);
